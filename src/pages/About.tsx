@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Heart, Target, Eye, Users, BookOpen, Briefcase, Award, Shield, CheckCircle } from "lucide-react"
+import {  Target, Eye, Users, BookOpen, Briefcase, Award, Shield, CheckCircle } from "lucide-react"
 
 export default function AboutPage() {
   return (
