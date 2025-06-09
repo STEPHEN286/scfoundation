@@ -15,7 +15,8 @@ export default function Header() {
               <Heart className="h-8 w-8 text-white" />
             </div>
             <div>
-              <span className="text-2xl font-bold text-gray-900">Second Chance Foundation</span>
+              <span className="text-2xl font-bold text-gray-900 md:block hidden">Second Chance Foundation</span>
+              <span className="text-xl font-bold text-gray-900 md:hidden">SCF</span>
               <p className="text-sm text-gray-600">Empowering Young Women</p>
             </div>
           </div>

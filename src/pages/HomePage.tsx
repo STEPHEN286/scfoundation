@@ -2,29 +2,26 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   ArrowRight,
-  
   Star,
-
 } from "lucide-react";
-// import React from 'react'
 import { Link } from "react-router-dom";
 
 const testimonials = [
   {
     name: "Sarah M.",
-    role: "Tailoring Graduate",
+    role: "Tailoring Graduate", 
     image: "/placeholder.svg?height=60&width=60",
     quote: "The foundation gave me hope when I had none. Today, I run my own tailoring business and support my family with dignity."
   },
   {
-    name: "Grace K.", 
+    name: "Grace K.",
     role: "Digital Literacy Graduate",
-    image: "/placeholder.svg?height=60&width=60",
+    image: "/placeholder.svg?height=60&width=60", 
     quote: "Learning computer skills opened doors I never knew existed. I now work as a data entry specialist and am pursuing further education."
   },
   {
     name: "Mary J.",
-    role: "Baking Program Graduate", 
+    role: "Baking Program Graduate",
     image: "/placeholder.svg?height=60&width=60",
     quote: "From struggling single mother to successful bakery owner. The foundation believed in me when I couldn't believe in myself."
   }
@@ -33,30 +30,30 @@ const testimonials = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative min-h-screen overflow-hidden  text-white">
-        <div className=" relative z-30  max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="  max-w-2xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+      <section className="relative min-h-[80vh] overflow-hidden text-white">
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-24">
+          <div className="max-w-2xl">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
               Empowering Young Women to
               <span className="text-blue-300 block">Build Their Future</span>
             </h1>
-            <p className="text-xl mb-8 text-blue-100 leading-relaxed">
+            <p className="text-base sm:text-xl mb-6 sm:mb-8 text-blue-100 leading-relaxed">
               Creating a world where every girl has access to education, skills,
               and opportunities to achieve her dreams and become strong
               independent women regardless of circumstances.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button
-                size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-lg px-8 py-4"
+                size="default"
+                className="bg-blue-600 hover:bg-blue-700 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
               >
                 Support Our Mission
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
               <Button
-                size="lg"
+                size="default"
                 variant="outline"
-                className="border-white text-blue-800 hover:bg-white hover:text-blue-900 text-lg px-8 py-4"
+                className="border-white text-blue-800 hover:bg-white hover:text-blue-900 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
               >
                 Learn More
               </Button>
@@ -74,73 +71,67 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-8 sm:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="bg-white p-6 rounded-lg ">
-              <div className="text-4xl font-bold text-blue-600 mb-2">500+</div>
-              <p className="text-gray-600 font-medium">Young Women Empowered</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
+            <div className="bg-white p-4 sm:p-6 rounded-lg">
+              <div className="text-2xl sm:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">500+</div>
+              <p className="text-sm sm:text-base text-gray-600 font-medium">Young Women Empowered</p>
             </div>
-            <div className="bg-white p-6 rounded-lg ">
-              <div className="text-4xl font-bold text-blue-600 mb-2">15</div>
-              <p className="text-gray-600 font-medium">
-                Skill Programs Offered
-              </p>
+            <div className="bg-white p-4 sm:p-6 rounded-lg">
+              <div className="text-2xl sm:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">15</div>
+              <p className="text-sm sm:text-base text-gray-600 font-medium">Skill Programs Offered</p>
             </div>
-            <div className="bg-white p-6 rounded-lg">
-              <div className="text-4xl font-bold text-blue-600 mb-2">85%</div>
-              <p className="text-gray-600 font-medium">
-                Employment Success Rate
-              </p>
+            <div className="bg-white p-4 sm:p-6 rounded-lg">
+              <div className="text-2xl sm:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">85%</div>
+              <p className="text-sm sm:text-base text-gray-600 font-medium">Employment Success Rate</p>
             </div>
-            <div className="bg-white p-6 rounded-lg ">
-              <div className="text-4xl font-bold text-blue-600 mb-2">10</div>
-              <p className="text-gray-600 font-medium">Years of Impact</p>
+            <div className="bg-white p-4 sm:p-6 rounded-lg">
+              <div className="text-2xl sm:text-4xl font-bold text-blue-600 mb-1 sm:mb-2">10</div>
+              <p className="text-sm sm:text-base text-gray-600 font-medium">Years of Impact</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Rest of sections... */}
-
       {/* Success Stories Section */}
-      <section className="py-24 bg-gray-50 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-24 bg-gray-50 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-8 sm:mb-16">
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-6">
               Success Stories
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-xl text-gray-600">
               Real transformations from our program graduates
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {testimonials.map((testimonial, index) => (
               <Card key={index} className="bg-white shadow-none border-1">
-                <CardContent className="p-8">
-                  <div className="flex items-center mb-6">
+                <CardContent className="p-4 sm:p-8">
+                  <div className="flex items-center mb-4 sm:mb-6">
                     <img
                       src={testimonial.image}
                       alt={`${testimonial.name}'s story`}
-                      width={60}
-                      height={60}
-                      className="rounded-full mr-4"
+                      width={50}
+                      height={50}
+                      className="rounded-full mr-3 sm:mr-4"
                     />
                     <div>
-                      <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                      <p className="text-gray-600">{testimonial.role}</p>
+                      <h4 className="font-bold text-gray-900 text-sm sm:text-base">{testimonial.name}</h4>
+                      <p className="text-gray-600 text-xs sm:text-sm">{testimonial.role}</p>
                     </div>
                   </div>
-                  <div className="flex mb-4">
+                  <div className="flex mb-3 sm:mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className="h-5 w-5 text-yellow-400 fill-current"
+                        className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 fill-current"
                       />
                     ))}
                   </div>
-                  <p className="text-gray-600 italic">
+                  <p className="text-gray-600 italic text-sm sm:text-base">
                     "{testimonial.quote}"
                   </p>
                 </CardContent>
@@ -151,33 +142,33 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-blue-600 text-white px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-24 bg-blue-600 text-white px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">
+              <h2 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6">
                 Help Us Empower More Young Women
               </h2>
-              <p className="text-xl mb-8 text-blue-100 leading-relaxed">
+              <p className="text-base sm:text-xl mb-6 sm:mb-8 text-blue-100 leading-relaxed">
                 Your support can transform lives and create opportunities for
                 young girls to build their dreams and become independent. Join
                 us in making a lasting impact.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link to="/donate">
                   <Button
-                    size="lg"
-                    className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-4"
+                    size="default"
+                    className="bg-white text-blue-600 hover:bg-gray-100 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4 w-full sm:w-auto"
                   >
                     Donate Today
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
                 </Link>
                 <Link to="/contact">
                   <Button
-                    size="lg"
+                    size="default"
                     variant="outline"
-                    className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-4"
+                    className="border-white text-white hover:bg-white hover:text-blue-600 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4 w-full sm:w-auto"
                   >
                     Get Involved
                   </Button>
@@ -190,7 +181,7 @@ export default function HomePage() {
                 alt="Community support"
                 width={500}
                 height={400}
-                className="rounded-lg shadow-xl"
+                className="rounded-lg shadow-xl w-full"
               />
             </div>
           </div>
