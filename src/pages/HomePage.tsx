@@ -2,12 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   ArrowRight,
-  Award,
-  BookOpen,
-  Briefcase,
-  CheckCircle,
+  
   Star,
-  Users,
+
 } from "lucide-react";
 // import React from 'react'
 import { Link } from "react-router-dom";
@@ -59,7 +56,7 @@ export default function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-blue-900 text-lg px-8 py-4"
+                className="border-white text-blue-800 hover:bg-white hover:text-blue-900 text-lg px-8 py-4"
               >
                 Learn More
               </Button>

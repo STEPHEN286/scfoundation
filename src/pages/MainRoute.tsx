@@ -1,6 +1,8 @@
 import RootLayout from "@/layouts/RootLayout"
 import { createBrowserRouter } from "react-router-dom"
 import HomePage from "./HomePage"
+import AboutPage from "./About"
+import ContactPage from "./Contact"
 
 
 const routers = createBrowserRouter([
@@ -11,6 +13,14 @@ const routers = createBrowserRouter([
                 {
                     index:true,
                     element: <HomePage />
+                },
+                {
+                    path: "about",
+                    element: <AboutPage />
+                },
+                {
+                    path: "contact",
+                    element: <ContactPage/>
                 }
         ]
 

@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Button } from "./ui/button";
 
 
@@ -18,18 +18,31 @@ export default function Header() {
           </div>
         </div>
         <div className="hidden md:flex space-x-8">
-          <Link to="/" className="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">
+          <NavLink 
+            to="/" 
+            className={({ isActive }) =>
+              isActive ? "text-blue-600 font-semibold border-b-2 border-blue-600 pb-1" : "text-gray-700 hover:text-blue-600 font-medium"
+            }
+          >
             Home
-          </Link>
-          <Link to="/about" className="text-gray-700 hover:text-blue-600 font-medium">
+          </NavLink>
+          <NavLink 
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? "text-blue-600 font-semibold border-b-2 border-blue-600 pb-1" : "text-gray-700 hover:text-blue-600 font-medium"
+            }
+          >
             About
-          </Link>
-          <Link to="/contact" className="text-gray-700 hover:text-blue-600 font-medium">
+          </NavLink>
+          <NavLink 
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? "text-blue-600 font-semibold border-b-2 border-blue-600 pb-1" : "text-gray-700 hover:text-blue-600 font-medium"
+            }
+          >
             Contact
-          </Link>
-          <Link to="/donate">
-            <Button className="bg-blue-600 hover:bg-blue-700 px-6 py-2">Donate Now</Button>
-          </Link>
+          </NavLink>
+          <Button disabled className="bg-blue-600 hover:bg-blue-700 px-6 py-2">Donate Now</Button>
         </div>
       </div>
     </div>
