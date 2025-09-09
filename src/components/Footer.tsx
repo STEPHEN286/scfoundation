@@ -1,4 +1,4 @@
-import { Heart } from 'lucide-react'
+
 import Logo from "@/assets/images/logo.jpg"
 
 export default function Footer () {
