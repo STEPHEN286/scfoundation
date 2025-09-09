@@ -1,15 +1,22 @@
 import { Heart } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import Logo from "@/assets/images/logo.jpg"
 
 export default function Footer () {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
       <footer className="bg-gray-900 text-white py-8 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div className="col-span-1 sm:col-span-2">
               <div className="flex items-center mb-4 sm:mb-6">
-                <div className="bg-blue-500 p-2 rounded-lg mr-3">
-                  <Heart className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                <div className="bg-pink-500  rounded-lg mr-3">
+                  <img src={Logo } alt="logo" className="w-15 h-15" />
                 </div>
                 <div>
                   <span className="text-xl sm:text-2xl font-bold">Second Chance Foundation</span>
@@ -25,24 +32,36 @@ export default function Footer () {
               <h3 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6">Quick Links</h3>
               <ul className="space-y-2 sm:space-y-3">
                 <li>
-                  <Link to="/" className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => scrollToSection('home')}
+                    className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >
                     Home
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link to="/about" className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => scrollToSection('about')}
+                    className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >
                     About
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link to="/contact" className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >
                     Contact
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link to="/donate" className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors">
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="text-sm sm:text-base text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >
                     Donate
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </div>

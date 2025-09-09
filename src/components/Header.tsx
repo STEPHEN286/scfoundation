@@ -1,21 +1,30 @@
-import { Heart, Menu, X } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import DonateModal from "./DonateModal";
+
+import Logo from "@/assets/images/logo.jpg"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false); // Close mobile menu after navigation
+  };
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-200">
+    <nav className="bg-white shadow-lg border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
-            <div className="bg-blue-600 p-2 rounded-lg mr-3">
-              <Heart className="h-8 w-8 text-white" />
-            </div>
+            <img src={Logo } alt="logo" className="w-15 h-15" />
             <div>
-              <span className="text-2xl font-bold text-gray-900 md:block hidden">Second Chance Foundation</span>
+              <span className="text-2xl font-bold text-gray-900 md:block hidden">Second Chance Movement</span>
               <span className="text-xl font-bold text-gray-900 md:hidden">SCF</span>
               <p className="text-sm text-gray-600">Empowering Young Women</p>
             </div>
@@ -37,31 +46,30 @@ export default function Header() {
 
           {/* Desktop menu */}
           <div className="hidden md:flex space-x-8">
-            <NavLink 
-              to="/" 
-              className={({ isActive }) =>
-                isActive ? "text-blue-600 font-semibold border-b-2 border-blue-600 pb-1" : "text-gray-700 hover:text-blue-600 font-medium"
-              }
+            <button 
+              onClick={() => scrollToSection('home')}
+              className="text-gray-700 hover:text-pink-600 font-medium transition-colors duration-200"
             >
               Home
-            </NavLink>
-            <NavLink 
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600 font-semibold border-b-2 border-blue-600 pb-1" : "text-gray-700 hover:text-blue-600 font-medium"
-              }
+            </button>
+            <button 
+              onClick={() => scrollToSection('about')}
+              className="text-gray-700 hover:text-pink-600 font-medium transition-colors duration-200"
             >
               About
-            </NavLink>
-            <NavLink 
-              to="/contact"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600 font-semibold border-b-2 border-blue-600 pb-1" : "text-gray-700 hover:text-blue-600 font-medium"
-              }
+            </button>
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="text-gray-700 hover:text-pink-600 font-medium transition-colors duration-200"
             >
               Contact
-            </NavLink>
-            <Button disabled className="bg-blue-600 hover:bg-blue-700 px-6 py-2">Donate Now</Button>
+            </button>
+            <Button 
+              onClick={() => setIsDonateModalOpen(true)}
+              className="bg-pink-600 hover:bg-pink-700 px-6 py-2"
+            >
+              Donate Now
+            </Button>
           </div>
         </div>
 
@@ -69,46 +77,42 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive ? "text-blue-600 bg-blue-50" : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                  }`
-                }
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                onClick={() => scrollToSection('home')}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 w-full text-left"
               >
                 Home
-              </NavLink>
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive ? "text-blue-600 bg-blue-50" : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                  }`
-                }
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection('about')}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 w-full text-left"
               >
                 About
-              </NavLink>
-              <NavLink
-                to="/contact"
-                className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive ? "text-blue-600 bg-blue-50" : "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                  }`
-                }
-                onClick={() => setIsMenuOpen(false)}
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 w-full text-left"
               >
                 Contact
-              </NavLink>
+              </button>
               <div className="px-3 py-2">
-                <Button disabled className="w-full bg-blue-600 hover:bg-blue-700 px-6 py-2">Donate Now</Button>
+                <Button 
+                  onClick={() => setIsDonateModalOpen(true)}
+                  className="w-full bg-pink-600 hover:bg-pink-700 px-6 py-2"
+                >
+                  Donate Now
+                </Button>
               </div>
             </div>
           </div>
         )}
       </div>
+      
+      {/* Donate Modal */}
+      <DonateModal 
+        isOpen={isDonateModalOpen} 
+        onClose={() => setIsDonateModalOpen(false)} 
+      />
     </nav>
   );
 }
