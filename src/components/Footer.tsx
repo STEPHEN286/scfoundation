@@ -19,13 +19,12 @@ export default function Footer () {
                   <img src={Logo } alt="logo" className="w-15 h-15" />
                 </div>
                 <div>
-                  <span className="text-xl sm:text-2xl font-bold">Second Chance Foundation</span>
+                  <span className="text-xl sm:text-2xl font-bold">2nd Chance Foundation</span>
                   <p className="text-sm sm:text-base text-gray-400">Empowering Young Women</p>
                 </div>
               </div>
               <p className="text-sm sm:text-base text-gray-400 mb-4 sm:mb-6 leading-relaxed">
-                Dedicated to empowering young girls through education, skills training, and opportunities to build a
-                better future for themselves and their families.
+                The Second Chance Foundation is a nonprofit organization dedicated to empowering young girls who have dropped out of school due to various circumstances, including teenage pregnancy, financial difficulties, or lack of family support.
               </p>
             </div>
             <div>
@@ -68,14 +67,11 @@ export default function Footer () {
             <div>
               <h3 className="text-base sm:text-lg font-semibold mb-4 sm:mb-6">Contact Info</h3>
               <div className="space-y-2 sm:space-y-3 text-sm sm:text-base text-gray-400">
-                <p>info@secondchancefoundation.org</p>
-                <p>+1 (555) 123-4567</p>
+                <p>johnsonblessings56@gmail.com</p>
+                <p>+233269472383</p>
+                <p>+233502187357</p>
                 <p>
-                  123 Hope Street
-                  <br />
-                  Community Center Building
-                  <br />
-                  Your City, State 12345
+                  Sierra Leone, Bo
                 </p>
               </div>
             </div>

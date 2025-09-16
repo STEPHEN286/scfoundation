@@ -192,8 +192,7 @@ export default function SinglePageApp() {
             <div>
               <h1 className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6">About Second Chance Foundation</h1>
               <p className="text-base sm:text-xl text-pink-100 leading-relaxed">
-                Dedicated to empowering young girls who have dropped out of school due to various circumstances,
-                providing them with education, skills, and opportunities to build a better future.
+                The Second Chance Foundation is a nonprofit organization dedicated to empowering young girls who have dropped out of school due to various circumstances, including teenage pregnancy, financial difficulties, or lack of family support. The goal is to provide them with the education, skills and opportunities they need to build a better future for themselves and their families.
               </p>
             </div>
             <div className="relative mt-8 lg:mt-0">
@@ -257,9 +256,11 @@ export default function SinglePageApp() {
                 <Eye className="h-12 w-12 sm:h-16 sm:w-16 text-pink-600 mx-auto mb-4 sm:mb-6" />
                 <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Our Vision</h3>
                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
-                  Creating a world where every girl has access to education, skills, and opportunities to achieve her
-                  dreams and become strong independent ladies regardless of circumstances.
+                  EMPOWER EVERY GIRL WITH EDUCATION, SKILLS, AND OPPORTUNITIES TO ACHIEVE HER FULL POTENTIAL
                 </p>
+                <div className="mt-4 text-sm text-gray-500 italic">
+                  Empowerment | Resilience | Education | Sustainability
+                </div>
               </CardContent>
             </Card>
 
@@ -310,8 +311,7 @@ export default function SinglePageApp() {
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900">Vocational Training</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Offer comprehensive vocational training programs that equip young girls with practical, marketable
-                  skills for employment and entrepreneurship opportunities.
+                  Offer vocational programs to build practical skills.
                 </p>
               </CardContent>
             </Card>
@@ -323,8 +323,7 @@ export default function SinglePageApp() {
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900">Educational Support</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Provide personalized educational support and dedicated mentorship to encourage personal growth,
-                  self-reliance, and academic achievement.
+                  Provide educational support and mentorship.
                 </p>
               </CardContent>
             </Card>
@@ -336,8 +335,7 @@ export default function SinglePageApp() {
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900">Safe Environment</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Create a safe, supportive, and nurturing environment where young mothers can focus on learning while
-                  receiving professional childcare assistance.
+                  Create a safe and supportive environment and childcare assistance.
                 </p>
               </CardContent>
             </Card>
@@ -349,8 +347,7 @@ export default function SinglePageApp() {
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900">Entrepreneurship</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Empower girls with comprehensive entrepreneurship training and financial literacy skills to help them
-                  become economically independent and self-sufficient.
+                  Empower girls with entrepreneurship and financial literacy skills.
                 </p>
               </CardContent>
             </Card>
@@ -362,8 +359,7 @@ export default function SinglePageApp() {
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900">Advocacy</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  Advocate for the rights of young women and raise community awareness on critical issues affecting
-                  their education, well-being, and future opportunities.
+                  Advocate for the rights of young women, their education and wellbeing.
                 </p>
               </CardContent>
             </Card>
@@ -566,8 +562,7 @@ export default function SinglePageApp() {
                       </div>
                       <div>
                         <h3 className="font-bold text-gray-900 mb-2">Email</h3>
-                        <p className="text-sm sm:text-base text-gray-600">info@secondchancefoundation.org</p>
-                        <p className="text-sm sm:text-base text-gray-600">programs@secondchancefoundation.org</p>
+                        <p className="text-sm sm:text-base text-gray-600">johnsonblessings56@gmail.com</p>
                       </div>
                     </div>
                   </CardContent>
@@ -581,8 +576,8 @@ export default function SinglePageApp() {
                       </div>
                       <div>
                         <h3 className="font-bold text-gray-900 mb-2">Phone</h3>
-                        <p className="text-sm sm:text-base text-gray-600">+1 (555) 123-4567 (Main Office)</p>
-                        <p className="text-sm sm:text-base text-gray-600">+1 (555) 987-6543 (Programs)</p>
+                        <p className="text-sm sm:text-base text-gray-600">+233269472383</p>
+                        <p className="text-sm sm:text-base text-gray-600">+233502187357</p>
                       </div>
                     </div>
                   </CardContent>
@@ -597,11 +592,7 @@ export default function SinglePageApp() {
                       <div>
                         <h3 className="font-bold text-gray-900 mb-2">Address</h3>
                         <p className="text-sm sm:text-base text-gray-600">
-                          123 Hope Street
-                          <br />
-                          Community Center Building
-                          <br />
-                          Your City, State 12345
+                          Sierra Leone, Bo
                         </p>
                       </div>
                     </div>
@@ -637,7 +628,7 @@ export default function SinglePageApp() {
       <section className="py-12 sm:py-24 bg-gray-50 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Ways to Get Involved</h2>
+            <h2 className="text-2xl sm:text-4xl font-bold text-gray-900 mb-4 sm:mb-6">Ways to Support</h2>
             <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">
               There are many meaningful ways you can support our mission and make a lasting difference in young women's
               lives
@@ -650,10 +641,9 @@ export default function SinglePageApp() {
                 <div className="bg-pink-50 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                   <Heart className="h-8 w-8 sm:h-10 sm:w-10 text-pink-500" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">Donate</h3>
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">Financial Investment</h3>
                 <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
-                  Support our programs with a financial contribution that directly impacts young women's lives and
-                  creates lasting change.
+                  Help us invest in the lives of these young girls and build a center to sustain our efforts. No amount is too small.
                 </p>
                 <Button 
                   className="bg-pink-500 hover:bg-pink-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
@@ -669,10 +659,9 @@ export default function SinglePageApp() {
                 <div className="bg-pink-50 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                   <Users className="h-8 w-8 sm:h-10 sm:w-10 text-pink-500" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">Volunteer</h3>
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">Mentorship</h3>
                 <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
-                  Share your skills and time to mentor, teach, or support our programs and help young women achieve
-                  their goals.
+                  Godly mentorship and life-coaching of young girls to encourage personal growth and self-reliance—and promote a support system.
                 </p>
                 {/* <Button
                   variant="outline"
@@ -688,9 +677,9 @@ export default function SinglePageApp() {
                 <div className="bg-pink-50 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
                   <Award className="h-8 w-8 sm:h-10 sm:w-10 text-pink-500" />
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">Partner</h3>
+                <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-900">Program Planning</h3>
                 <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
-                  Collaborate with us as an organization to expand our reach and create greater impact in the community.
+                  Planning support with vocational training financial literacy programs and empowering workshops and/or volunteer to lead a session.
                 </p>
                 {/* <Button
                   variant="outline"

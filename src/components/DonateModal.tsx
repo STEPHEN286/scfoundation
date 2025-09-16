@@ -152,6 +152,15 @@ export default function DonateModal({ isOpen, onClose }: DonateModalProps) {
             Donate Now
           </Button>
 
+          {/* Account Information */}
+          <div className="bg-gray-50 p-3 sm:p-4 rounded-lg mb-3 sm:mb-4">
+            <h4 className="text-sm sm:text-base font-semibold text-gray-900 mb-2">Account Information</h4>
+            <p className="text-xs sm:text-sm text-gray-600">
+              <strong>Account Name:</strong> The Sho-Sho Foundation<br />
+              <strong>Account Number:</strong> 0032903151101
+            </p>
+          </div>
+
           {/* Footer Message */}
           <p className="text-center text-xs sm:text-sm text-gray-500">
             Your donation is secure and helps us continue our mission to make a positive impact.

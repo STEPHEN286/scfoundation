@@ -24,8 +24,8 @@ export default function Header() {
           <div className="flex items-center">
             <img src={Logo } alt="logo" className="w-15 h-15" />
             <div>
-              <span className="text-2xl font-bold text-gray-900 md:block hidden">Second Chance Movement</span>
-              <span className="text-xl font-bold text-gray-900 md:hidden">SCF</span>
+              <span className="text-2xl font-bold text-gray-900 md:block hidden">2nd Chance Movement</span>
+              <span className="text-xl font-bold text-gray-900 md:hidden">2nd Chance Movement</span>
               <p className="text-sm text-gray-600">Empowering Young Women</p>
             </div>
           </div>
