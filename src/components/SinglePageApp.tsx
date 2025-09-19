@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import DonateModal from "./DonateModal";
-import { useState } from "react";
 import {
   ArrowRight,
   Star,
@@ -46,7 +45,6 @@ const testimonials = [
 ];
 
 export default function SinglePageApp() {
-  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -82,14 +80,17 @@ export default function SinglePageApp() {
               independent women regardless of circumstances.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Button
-                size="default"
-                className="bg-pink-600 hover:bg-pink-700 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
-                onClick={() => setIsDonateModalOpen(true)}
-              >
-                Support Our Mission
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
+              <DonateModal 
+                trigger={
+                  <Button
+                    size="default"
+                    className="bg-pink-600 hover:bg-pink-700 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
+                  >
+                    Support Our Mission
+                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  </Button>
+                }
+              />
               <Button
                 size="default"
                 variant="outline"
@@ -403,7 +404,7 @@ export default function SinglePageApp() {
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
-            <Card className="bg-white/10 backdrop-blur border-white/20">
+            <Card className="bg-white/50 backdrop-blur-sm border-white/20">
               <CardContent className="p-6 sm:p-8">
                 <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Reduce Educational Gaps</h3>
                 <p className="text-sm sm:text-base text-pink-100 leading-relaxed">
@@ -413,7 +414,7 @@ export default function SinglePageApp() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/10 backdrop-blur border-white/20">
+            <Card className="bg-white/50 backdrop-blur-sm border-white/20">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-4">Practical Skills Development</h3>
                 <p className="text-pink-100 leading-relaxed">
@@ -423,7 +424,7 @@ export default function SinglePageApp() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/10 backdrop-blur border-white/20">
+            <Card className="bg-white/50 backdrop-blur-sm border-white/20">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-4">Economic Empowerment</h3>
                 <p className="text-pink-100 leading-relaxed">
@@ -433,7 +434,7 @@ export default function SinglePageApp() {
               </CardContent>
             </Card>
 
-            <Card className="bg-white/10 backdrop-blur border-white/20">
+            <Card className="bg-white/50 backdrop-blur-sm border-white/20">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-4">Build Confidence & Leadership</h3>
                 <p className="text-pink-100 leading-relaxed">
@@ -645,12 +646,13 @@ export default function SinglePageApp() {
                 <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
                   Help us invest in the lives of these young girls and build a center to sustain our efforts. No amount is too small.
                 </p>
-                <Button 
-                  className="bg-pink-500 hover:bg-pink-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base"
-                  onClick={() => setIsDonateModalOpen(true)}
-                >
-                  Donate Now
-                </Button>
+                <DonateModal 
+                  trigger={
+                    <Button className="bg-pink-500 hover:bg-pink-600 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base">
+                      Donate Now
+                    </Button>
+                  }
+                />
               </CardContent>
             </Card>
 
@@ -717,14 +719,17 @@ export default function SinglePageApp() {
                 us in making a lasting impact.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <Button
-                  size="default"
-                  className="bg-white text-pink-600 hover:bg-gray-100 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4 w-full sm:w-auto"
-                  onClick={() => setIsDonateModalOpen(true)}
-                >
-                  Donate Today
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                </Button>
+                <DonateModal 
+                  trigger={
+                    <Button
+                      size="default"
+                      className="bg-white text-pink-600 hover:bg-gray-100 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4 w-full sm:w-auto"
+                    >
+                      Donate Today
+                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                    </Button>
+                  }
+                />
                 <Button
                   size="default"
                   variant="outline"
@@ -748,11 +753,6 @@ export default function SinglePageApp() {
         </div>
       </section>
 
-      {/* Donate Modal */}
-      <DonateModal 
-        isOpen={isDonateModalOpen} 
-        onClose={() => setIsDonateModalOpen(false)} 
-      />
     </div>
   );
 }

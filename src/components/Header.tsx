@@ -7,7 +7,6 @@ import Logo from "@/assets/images/logo.jpg"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -64,12 +63,13 @@ export default function Header() {
             >
               Contact
             </button>
-            <Button 
-              onClick={() => setIsDonateModalOpen(true)}
-              className="bg-pink-600 hover:bg-pink-700 px-6 py-2"
-            >
-              Donate Now
-            </Button>
+            <DonateModal 
+              trigger={
+                <Button className="bg-pink-600 hover:bg-pink-700 px-6 py-2">
+                  Donate Now
+                </Button>
+              }
+            />
           </div>
         </div>
 
@@ -96,23 +96,19 @@ export default function Header() {
                 Contact
               </button>
               <div className="px-3 py-2">
-                <Button 
-                  onClick={() => setIsDonateModalOpen(true)}
-                  className="w-full bg-pink-600 hover:bg-pink-700 px-6 py-2"
-                >
-                  Donate Now
-                </Button>
+                <DonateModal 
+                  trigger={
+                    <Button className="w-full bg-pink-600 hover:bg-pink-700 px-6 py-2">
+                      Donate Now
+                    </Button>
+                  }
+                />
               </div>
             </div>
           </div>
         )}
       </div>
       
-      {/* Donate Modal */}
-      <DonateModal 
-        isOpen={isDonateModalOpen} 
-        onClose={() => setIsDonateModalOpen(false)} 
-      />
     </nav>
   );
 }
