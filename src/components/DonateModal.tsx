@@ -1,8 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Shield } from "lucide-react";
+// axios not used here; API calls are handled in the hook
+import useDonation from "@/hooks/use-donation";
 import {
   Dialog,
   DialogContent,
@@ -20,11 +25,10 @@ interface DonationModalProps {
 const DonationModal = ({ trigger }: DonationModalProps) => {
   const [amount, setAmount] = useState(25);
   const [customAmount, setCustomAmount] = useState("");
-  const [donorName, setDonorName] = useState("");
-  const [donorEmail, setDonorEmail] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [PaystackComponent, setPaystackComponent] = useState<((config: unknown) => unknown) | null>(null);
+  // const [PaystackComponent, setPaystackComponent] = useState(null); // commented out while using API directly
+  const [submitting, setSubmitting] = useState(false);
 
   const donationAmounts = [
     { value: 10, label: "$10" },
@@ -33,91 +37,89 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
     { value: 100, label: "$100" },
   ];
 
-  // Load Paystack only on client side
+  // Load client flag
   useEffect(() => {
     setIsClient(true);
-    const loadPaystack = async () => {
-      try {
-        const { usePaystackPayment } = await import("react-paystack");
-        setPaystackComponent(() => usePaystackPayment);
-      } catch (error) {
-        console.error("Failed to load Paystack:", error);
-      }
-    };
-    loadPaystack();
   }, []);
 
-  // Paystack configuration
-  const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
-  
-  const config = {
-    reference: (new Date()).getTime().toString(),
-    email: donorEmail,
-    amount: amount * 100, // Paystack expects amount in cents (smallest currency unit)
-    currency: "GHS", // Specify GHS currency
-    publicKey: publicKey,
-    metadata: {
-      donor_name: donorName,
-      foundation: "SHO-SHO Foundation"
-    }
-  };
-
-  const initializePayment = PaystackComponent ? PaystackComponent(config) : null;
+  // Paystack temporarily disabled in favor of direct donation API
+  // const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY ;
+  // const config = { ... };
+  // const initializePayment = PaystackComponent ? PaystackComponent(config) : null;
 
   const handleAmountClick = (value: number) => {
     setAmount(value);
     setCustomAmount("");
+    setValue("amount", value, { shouldDirty: true });
   };
 
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCustomAmount(e.target.value);
     if (e.target.value) {
-      setAmount(parseFloat(e.target.value));
+      const valueNum = parseFloat(e.target.value);
+      setAmount(valueNum);
+      setValue("amount", isNaN(valueNum) ? 0 : valueNum, { shouldDirty: true });
     } else {
       setAmount(0);
+      setValue("amount", 0, { shouldDirty: true });
     }
   };
 
-  const onSuccess = (reference: { reference: string }) => {
-    // Payment successful
-    console.log("Payment successful:", reference);
-    alert(`Thank you for your donation of $${amount}! Your payment was successful. Reference: ${reference.reference}`);
-    // Reset form and close modal
+  const resetForm = () => {
     setAmount(25);
     setCustomAmount("");
-    setDonorName("");
-    setDonorEmail("");
-    setIsOpen(false);
+    reset({ full_name: "", email: "", amount: 25 });
   };
 
-  const onClose = () => {
-    // Payment cancelled
-    console.log("Payment cancelled");
-  };
+  const DonationSchema = z.object({
+    full_name: z.string().min(2, "Name is too short"),
+    email: z.string().email("Enter a valid email"),
+    amount: z.coerce.number().positive("Enter an amount greater than 0")
+  });
 
-  const handleDonate = () => {
-    if (!isClient || !initializePayment) {
-      alert("Payment system is loading, please try again in a moment");
+  const form = useForm({
+    resolver: zodResolver(DonationSchema),
+    defaultValues: { full_name: "", email: "", amount: 25 },
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    criteriaMode: "firstError"
+  });
+
+  const { register, handleSubmit, formState: { errors }, setValue, reset } = form;
+
+  const { initializeDonation } = useDonation();
+
+  const onSubmit = async (values: { full_name: string; email: string; amount: number }) => {
+    if (!isClient) {
+      alert("Please try again in a moment");
       return;
     }
-    
-    if (!donorName.trim()) {
-      alert("Please enter your name");
-      return;
-    }
-    if (!donorEmail.trim()) {
-      alert("Please enter your email");
-      return;
-    }
-    if (amount <= 0) {
-      alert("Please select a valid donation amount");
-      return;
-    }
-    
-    // Close the donation modal before opening Paystack
-    setIsOpen(false);
-    if (initializePayment && typeof initializePayment === 'function') {
-      initializePayment(onSuccess, onClose);
+
+    try {
+      setSubmitting(true);
+      const callbackUrl = "https://presidentialrtc.site/payment-callback.html";
+      const responseData = await initializeDonation({
+        full_name: values.full_name,
+        email: values.email,
+        amount: Number(values.amount),
+        callback_url: callbackUrl
+      });
+
+      const authorizationUrl = responseData?.authorization_url || responseData?.data?.authorization_url;
+      const reference = responseData?.reference || responseData?.data?.reference;
+
+      if (authorizationUrl) {
+        window.location.href = authorizationUrl;
+      } else {
+        alert(`Thank you! Your donation was initialized${reference ? ` (ref: ${reference})` : ""}.`);
+        resetForm();
+        setIsOpen(false);
+      }
+    } catch (err) {
+      console.error("Donation error", err);
+      alert("Sorry, we couldn't record your donation. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -159,7 +161,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
                 key={option.value}
                 type="button"
                 variant={amount === option.value && !customAmount ? "default" : "outline"}
-                className={`text-sm py-2 w-full ${amount === option.value && !customAmount ? "bg-pink-600 hover:bg-pink-700" : ""}`}
+                className={`text-sm py-2 w-full ${amount === option.value && !customAmount ? "bg-primary hover:bg-primary/90" : ""}`}
                 onClick={() => handleAmountClick(option.value)}
               >
                 {option.label}
@@ -186,49 +188,55 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
         {/* Donor Information */}
         <div className="space-y-3">
           <h3 className="text-sm font-medium">Your Information</h3>
-          <div className="space-y-2">
+          <form id="donation-form" onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <input
               type="text"
               placeholder="Full Name"
-              value={donorName}
-              onChange={(e) => setDonorName(e.target.value)}
+              {...register("full_name")}
               className="w-full px-3 py-2 text-sm border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               required
             />
+            {errors.full_name && (
+              <p className="text-xs text-red-600">{errors.full_name.message}</p>
+            )}
             <input
               type="email"
               placeholder="Email Address"
-              value={donorEmail}
-              onChange={(e) => setDonorEmail(e.target.value)}
+              {...register("email")}
               className="w-full px-3 py-2 text-sm border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               required
             />
-          </div>
+            {errors.email && (
+              <p className="text-xs text-red-600">{errors.email.message}</p>
+            )}
+            {/* keep amount synced in the form */}
+            <input type="hidden" {...register("amount", { valueAsNumber: true })} value={amount} readOnly />
+          </form>
         </div>
 
         <div className="border-t pt-3 mt-3">
           <div className="flex justify-between items-center mb-3">
             <span className="font-medium text-sm sm:text-base">Total Donation:</span>
-            <span className="text-lg sm:text-xl font-bold text-pink-600">${amount.toFixed(2)}</span>
+            <span className="text-lg sm:text-xl font-bold text-blue-600">${amount.toFixed(2)}</span>
           </div>
         </div>
 
         <DialogFooter className="px-0">
           <Button 
-            type="button" 
-            className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold text-sm sm:text-base py-2.5"
-            onClick={handleDonate}
-            disabled={!isClient || !initializePayment}
+            type="submit"
+            form="donation-form"
+            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold text-sm sm:text-base py-2.5"
+            disabled={!isClient || submitting}
           >
             <CreditCard className="w-4 h-4 mr-2" />
-            {!isClient || !initializePayment ? "Loading..." : "Pay with Paystack"}
+            {submitting ? "Submitting..." : "Donate"}
           </Button>
         </DialogFooter>
 
         <div className="text-center text-xs text-muted-foreground mt-3 space-y-1">
           <div className="flex items-center justify-center gap-1">
             <Shield className="w-3 h-3" />
-            <span>Secure payment powered by Paystack</span>
+            <span>Thank you for your support.</span>
           </div>
           <div>Your donation helps us continue our mission to make a positive impact.</div>
         </div>
