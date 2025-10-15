@@ -44,11 +44,14 @@ const testimonials = [
   }
 ];
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useContactMessage from "@/hooks/use-contact";
-import { toast } from "sonner";
+import { useGetProcessedDonations } from "@/hooks/use-donation";
+import toast from "react-hot-toast";
 
 export default function SinglePageApp() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [notificationIndex, setNotificationIndex] = useState(0);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -60,6 +63,123 @@ export default function SinglePageApp() {
   // Contact form submission state
   const contactMutation = useContactMessage();
   const isSendingMessage = contactMutation.isPending as boolean;
+
+  // Donation notifications
+  const { data: processedDonations, isLoading, error } = useGetProcessedDonations();
+  
+  // Debug logging
+  console.log("Processed donations:", processedDonations);
+  console.log("Is loading:", isLoading);
+  console.log("Error:", error);
+  
+  const donations =
+    Array.isArray(processedDonations) && processedDonations.length > 0
+      ? [...processedDonations]
+          .sort(
+            (a, b) =>
+              new Date(b.updated_at || b.created_at).getTime() -
+              new Date(a.updated_at || a.created_at).getTime()
+          )
+          .map((d) => ({
+            donorName: d.full_name || "Anonymous",
+            amount: Number(parseFloat(d.amount)),
+            message: "",
+          }))
+      : [];
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Advance index on an interval, stop at last donation
+  useEffect(() => {
+    if (donations.length === 0) return;
+    const interval = setInterval(() => {
+      setNotificationIndex((prev) => {
+        const nextIndex = prev + 1;
+        return nextIndex >= donations.length ? prev : nextIndex; // Stop at last donation
+      });
+    }, isMobile ? 5000 : 7000); // Slightly longer intervals for smoother transitions
+    return () => clearInterval(interval);
+  }, [donations.length, isMobile]);
+
+  // Show toast whenever the index or list changes
+  useEffect(() => {
+    // console.log("Toast effect triggered:", { donationsLength: donations.length, notificationIndex });
+    
+    if (donations.length === 0) {
+      console.log("No donations available");
+      return;
+    }
+    
+    const donation = donations[notificationIndex % donations.length];
+    console.log("Showing donation toast:", donation);
+    
+    toast.dismiss();
+    toast.custom(
+      (t) => (
+        <div
+          className={`toast-enter ${
+            isMobile ? "max-w-[280px] w-[280px]" : "max-w-sm w-80"
+          } official-notification rounded-lg pointer-events-auto toast-item`}
+          style={{
+            transform: t.visible ? 'translateX(0)' : 'translateX(-100%)',
+            opacity: t.visible ? 1 : 0,
+            transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          }}
+        >
+          <div className={isMobile ? "p-3" : "p-4"}>
+            <div
+              className={`flex items-center justify-between ${
+                isMobile ? "mb-1.5" : "mb-2"
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                <div
+                  className={`${
+                    isMobile ? "w-1.5 h-1.5" : "w-2 h-2"
+                  } bg-green-500 rounded-full`}
+                />
+                <span
+                  className={`${
+                    isMobile ? "text-xs" : "text-sm"
+                  } font-semibold text-gray-800 truncate max-w-[120px]`}
+                >
+                  {donation.donorName}
+                </span>
+              </div>
+              <span
+                className={`${
+                  isMobile ? "text-sm" : "text-lg"
+                } font-bold text-green-600`}
+              >
+                ${donation.amount.toLocaleString()}
+              </span>
+            </div>
+          </div>
+        </div>
+      ),
+      {
+        duration: isMobile ? 4000 : 6000,
+        position: "bottom-left",
+        style: { 
+          margin: "0", 
+          padding: "0",
+          background: "transparent",
+          boxShadow: "none",
+        },
+        className: "donation-toast",
+      }
+    );
+  }, [donations, notificationIndex, isMobile]);
 
 
   const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -109,8 +229,14 @@ export default function SinglePageApp() {
     return () => window.removeEventListener('hashchange', handleHashScroll);
   }, []);
 
+  // Test toast on component mount
+
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Toast Test Component */}
+      {/* <ToastTest /> */}
+      
       {/* Hero Section */}
       <section 
         id="home" 
@@ -135,27 +261,28 @@ export default function SinglePageApp() {
               and opportunities to achieve her dreams and become strong
               independent women regardless of circumstances.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <DonateModal 
-                trigger={
-                  <Button
-                    size="default"
-                    className="bg-pink-600 hover:bg-pink-700 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
-                  >
-                    Support Our Mission
-                    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                  </Button>
-                }
-              />
-              <Button
-                size="default"
-                variant="outline"
-                className="border-white text-pink-800 hover:bg-white hover:text-pink-900 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
-                onClick={() => scrollToSection('about')}
-              >
-                Learn More
-              </Button>
-            </div>
+                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                       <DonateModal
+                         trigger={
+                           <Button
+                             size="default"
+                             className="bg-pink-600 hover:bg-pink-700 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
+                           >
+                             Support Our Mission
+                             <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                           </Button>
+                         }
+                       />
+                       <Button
+                         size="default"
+                         variant="outline"
+                         className="border-white text-pink-800 hover:bg-white hover:text-pink-900 text-base sm:text-lg px-6 sm:px-8 py-2 sm:py-4"
+                         onClick={() => scrollToSection('about')}
+                       >
+                         Learn More
+                       </Button>
+                       
+                     </div>
           </div>
         </div>
       </section>
@@ -546,10 +673,10 @@ export default function SinglePageApp() {
               <Card className="shadow-md border-t-2 border-t-pink-500">
                 <CardContent className="p-4 sm:p-8">
                   <form className="space-y-4 sm:space-y-6" onSubmit={handleContactSubmit}>
-                    <div className="space-y-2">
+                      <div className="space-y-2">
                       <Label htmlFor="name" className="text-sm font-semibold text-gray-700">
                         Name
-                      </Label>
+                        </Label>
                       <Input id="name" name="name" placeholder="Your full name" className="h-10 sm:h-12" />
                     </div>
 
@@ -799,9 +926,10 @@ export default function SinglePageApp() {
               />
             </div>
           </div>
-        </div>
-      </section>
+           </div>
+         </section>
 
-    </div>
-  );
-}
+
+       </div>
+     );
+   }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Shield } from "lucide-react";
-import axios from "axios";
+
 // axios not used here; API calls are handled in the hook
 import useDonation from "@/hooks/use-donation";
 import {
@@ -30,7 +30,6 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
   const [isClient, setIsClient] = useState(false);
   // const [PaystackComponent, setPaystackComponent] = useState(null); // commented out while using API directly
   const [submitting, setSubmitting] = useState(false);
-
 
   const donationAmounts = [
     { value: 10, label: "$10" },
@@ -76,7 +75,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
   const DonationSchema = z.object({
     full_name: z.string().min(2, "Name is too short"),
     email: z.string().email("Enter a valid email"),
-    amount: z.coerce.number().positive("Enter an amount greater than 0")
+    amount: z.coerce.number().positive("Enter an amount greater than 0"),
   });
 
   const form = useForm({
@@ -84,14 +83,24 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
     defaultValues: { full_name: "", email: "", amount: 25 },
     mode: "onSubmit",
     reValidateMode: "onSubmit",
-    criteriaMode: "firstError"
+    criteriaMode: "firstError",
   });
 
-  const { register, handleSubmit, formState: { errors }, setValue, reset } = form;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = form;
 
   const { initializeDonation } = useDonation();
 
-  const onSubmit = async (values: { full_name: string; email: string; amount: number }) => {
+  const onSubmit = async (values: {
+    full_name: string;
+    email: string;
+    amount: number;
+  }) => {
     if (!isClient) {
       alert("Please try again in a moment");
       return;
@@ -99,21 +108,29 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
 
     try {
       setSubmitting(true);
-      const callbackUrl = "https://presidentialrtc.site/secondchance/payment-callback.html'";
+      const callbackUrl =
+        "https://presidentialrtc.site/secondchance/payment-callback.html'";
       const responseData = await initializeDonation({
         full_name: values.full_name,
         email: values.email,
         amount: Number(values.amount),
-        callback_url: callbackUrl
+        callback_url: callbackUrl,
       });
 
-      const authorizationUrl = responseData?.authorization_url || responseData?.data?.authorization_url;
-      const reference = responseData?.reference || responseData?.data?.reference;
+      const authorizationUrl =
+        responseData?.authorization_url ||
+        responseData?.data?.authorization_url;
+      const reference =
+        responseData?.reference || responseData?.data?.reference;
 
       if (authorizationUrl) {
         window.location.href = authorizationUrl;
       } else {
-        alert(`Thank you! Your donation was initialized${reference ? ` (ref: ${reference})` : ""}.`);
+        alert(
+          `Thank you! Your donation was initialized${
+            reference ? ` (ref: ${reference})` : ""
+          }.`
+        );
         resetForm();
         setIsOpen(false);
       }
@@ -127,15 +144,16 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {trigger}
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       {/* Ensure horizontal margins on all screen sizes */}
       <DialogContent className="max-w-sm sm:max-w-lg max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-xl sm:text-2xl font-bold text-center mb-2">Make a Donation</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold text-center mb-2">
+            Make a Donation
+          </DialogTitle>
           <DialogDescription className="text-center text-sm sm:text-base">
-            Your donation directly supports our mission to empower vulnerable women, youth, and children in Sierra Leone.
+            Your donation directly supports our mission to empower vulnerable
+            women, youth, and children in Sierra Leone.
           </DialogDescription>
         </DialogHeader>
 
@@ -162,8 +180,16 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
               <Button
                 key={option.value}
                 type="button"
-                variant={amount === option.value && !customAmount ? "default" : "outline"}
-                className={`text-sm py-2 w-full ${amount === option.value && !customAmount ? "bg-pink-600 hover:bg-pink-700" : ""}`}
+                variant={
+                  amount === option.value && !customAmount
+                    ? "default"
+                    : "outline"
+                }
+                className={`text-sm py-2 w-full ${
+                  amount === option.value && !customAmount
+                    ? "bg-pink-600 hover:bg-pink-700"
+                    : ""
+                }`}
                 onClick={() => handleAmountClick(option.value)}
               >
                 {option.label}
@@ -176,7 +202,9 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
         <div className="space-y-2">
           <h3 className="text-sm font-medium">Custom Amount</h3>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+              $
+            </span>
             <input
               type="number"
               placeholder="Enter custom amount"
@@ -190,7 +218,11 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
         {/* Donor Information */}
         <div className="space-y-3">
           <h3 className="text-sm font-medium">Your Information</h3>
-          <form id="donation-form" onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+          <form
+            id="donation-form"
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-2"
+          >
             <input
               type="text"
               placeholder="Full Name"
@@ -212,19 +244,34 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
               <p className="text-xs text-red-600">{errors.email.message}</p>
             )}
             {/* keep amount synced in the form */}
-            <input type="hidden" {...register("amount", { valueAsNumber: true })} value={amount} readOnly />
+            <input
+              type="hidden"
+              {...register("amount", { valueAsNumber: true })}
+              value={amount}
+              readOnly
+            />
           </form>
         </div>
 
         <div className="border-t pt-3 mt-3">
-          <div className="flex justify-between items-center mb-3">
-            <span className="font-medium text-sm sm:text-base">Total Donation:</span>
-            <span className="text-lg sm:text-xl font-bold text-pink-600">${amount.toFixed(2)}</span>
+          <div className="flex justify-between items-center mb-2">
+            <span className="font-medium text-sm sm:text-base">
+              Total Donation:
+            </span>
+            <span className="text-lg sm:text-xl font-bold text-pink-600">
+              ${amount.toFixed(2)}
+            </span>
+          </div>
+
+          <div className="text-xs text-gray-500 bg-pink-50 p-2 rounded-md border-l-2 border-pink-200">
+            <strong>Note:</strong> Your donation will be processed in Ghanaian
+            Cedis (GHC). The amount shown above will be converted using the
+            current exchange rate.
           </div>
         </div>
 
         <DialogFooter className="px-0">
-          <Button 
+          <Button
             type="submit"
             form="donation-form"
             className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold text-sm sm:text-base py-2.5"
@@ -240,7 +287,10 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
             <Shield className="w-3 h-3" />
             <span>Thank you for your support.</span>
           </div>
-          <div>Your donation helps us continue our mission to make a positive impact.</div>
+          <div>
+            Your donation helps us continue our mission to make a positive
+            impact.
+          </div>
         </div>
       </DialogContent>
     </Dialog>
