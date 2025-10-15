@@ -6,6 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Shield } from "lucide-react";
+import axios from "axios";
 // axios not used here; API calls are handled in the hook
 import useDonation from "@/hooks/use-donation";
 import {
@@ -29,6 +30,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
   const [isClient, setIsClient] = useState(false);
   // const [PaystackComponent, setPaystackComponent] = useState(null); // commented out while using API directly
   const [submitting, setSubmitting] = useState(false);
+
 
   const donationAmounts = [
     { value: 10, label: "$10" },
@@ -97,7 +99,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
 
     try {
       setSubmitting(true);
-      const callbackUrl = "https://presidentialrtc.site/payment-callback.html";
+      const callbackUrl = "https://presidentialrtc.site/secondchance/payment-callback.html'";
       const responseData = await initializeDonation({
         full_name: values.full_name,
         email: values.email,
