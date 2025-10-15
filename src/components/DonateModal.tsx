@@ -161,7 +161,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
                 key={option.value}
                 type="button"
                 variant={amount === option.value && !customAmount ? "default" : "outline"}
-                className={`text-sm py-2 w-full ${amount === option.value && !customAmount ? "bg-primary hover:bg-primary/90" : ""}`}
+                className={`text-sm py-2 w-full ${amount === option.value && !customAmount ? "bg-pink-600 hover:bg-pink-700" : ""}`}
                 onClick={() => handleAmountClick(option.value)}
               >
                 {option.label}
@@ -217,7 +217,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
         <div className="border-t pt-3 mt-3">
           <div className="flex justify-between items-center mb-3">
             <span className="font-medium text-sm sm:text-base">Total Donation:</span>
-            <span className="text-lg sm:text-xl font-bold text-blue-600">${amount.toFixed(2)}</span>
+            <span className="text-lg sm:text-xl font-bold text-pink-600">${amount.toFixed(2)}</span>
           </div>
         </div>
 
@@ -225,7 +225,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
           <Button 
             type="submit"
             form="donation-form"
-            className="w-full bg-primary hover:bg-primary/90 text-white font-semibold text-sm sm:text-base py-2.5"
+            className="w-full bg-pink-600 hover:bg-pink-700 text-white font-semibold text-sm sm:text-base py-2.5"
             disabled={!isClient || submitting}
           >
             <CreditCard className="w-4 h-4 mr-2" />

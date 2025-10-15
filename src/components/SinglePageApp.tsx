@@ -44,6 +44,10 @@ const testimonials = [
   }
 ];
 
+import { useEffect } from "react";
+import useContactMessage from "@/hooks/use-contact";
+import { toast } from "sonner";
+
 export default function SinglePageApp() {
 
   const scrollToSection = (sectionId: string) => {
@@ -52,6 +56,58 @@ export default function SinglePageApp() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Contact form submission state
+  const contactMutation = useContactMessage();
+  const isSendingMessage = contactMutation.isPending as boolean;
+
+
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    toast.dismiss();
+
+    const formData = new FormData(e.currentTarget);
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const phone = String(formData.get('phone') || '').trim();
+    const subject = String(formData.get('subject') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+
+    if (!name || !email || !subject || !message) {
+      toast.error('Please complete required fields.');
+      return;
+    }
+
+    contactMutation.mutate({ name, email, phone, subject, message } , {
+      onSuccess: (data) => {
+        toast.success( data.message || 'Message sent successfully.');
+        e.currentTarget?.reset();
+      },
+      onError: (data) => {
+        toast.error(data.message || 'Failed to send message. Please try again.');
+      }
+    });
+      e.currentTarget?.reset();
+   
+  };
+
+  // Scroll to section if hash is present (supports navigating from other routes like /gallery#contact)
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash) {
+        // Small timeout to ensure content is rendered before scrolling
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 0);
+      }
+    };
+
+    handleHashScroll();
+    window.addEventListener('hashchange', handleHashScroll);
+    return () => window.removeEventListener('hashchange', handleHashScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -489,41 +545,33 @@ export default function SinglePageApp() {
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Send us a Message</h2>
               <Card className="shadow-md border-t-2 border-t-pink-500">
                 <CardContent className="p-4 sm:p-8">
-                  <form className="space-y-4 sm:space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName" className="text-sm font-semibold text-gray-700">
-                          First Name
-                        </Label>
-                        <Input id="firstName" placeholder="Your first name" className="h-10 sm:h-12" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName" className="text-sm font-semibold text-gray-700">
-                          Last Name
-                        </Label>
-                        <Input id="lastName" placeholder="Your last name" className="h-10 sm:h-12" />
-                      </div>
+                  <form className="space-y-4 sm:space-y-6" onSubmit={handleContactSubmit}>
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-sm font-semibold text-gray-700">
+                        Name
+                      </Label>
+                      <Input id="name" name="name" placeholder="Your full name" className="h-10 sm:h-12" />
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-sm font-semibold text-gray-700">
                         Email Address
                       </Label>
-                      <Input id="email" type="email" placeholder="your.email@example.com" className="h-10 sm:h-12" />
+                      <Input id="email" name="email" type="email" placeholder="your.email@example.com" className="h-10 sm:h-12" />
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="text-sm font-semibold text-gray-700">
                         Phone Number
                       </Label>
-                      <Input id="phone" type="tel" placeholder="+1 (555) 123-4567" className="h-10 sm:h-12" />
+                      <Input id="phone" name="phone" type="tel" placeholder="+1 (555) 123-4567" className="h-10 sm:h-12" />
                     </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="subject" className="text-sm font-semibold text-gray-700">
                         Subject
                       </Label>
-                      <Input id="subject" placeholder="How can we help you?" className="h-10 sm:h-12" />
+                      <Input id="subject" name="subject" placeholder="How can we help you?" className="h-10 sm:h-12" />
                     </div>
 
                     <div className="space-y-2">
@@ -532,14 +580,15 @@ export default function SinglePageApp() {
                       </Label>
                       <Textarea
                         id="message"
+                        name="message"
                         placeholder="Tell us more about your inquiry or how you'd like to get involved..."
                         className="min-h-[120px] sm:min-h-[150px] resize-none"
                       />
                     </div>
 
-                    <Button className="w-full bg-pink-500 hover:bg-pink-600 h-10 sm:h-12 text-base sm:text-lg">
+                    <Button disabled={isSendingMessage} className="w-full bg-pink-500 hover:bg-pink-600 h-10 sm:h-12 text-base sm:text-lg">
                       <Send className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                      Send Message
+                      {isSendingMessage ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
                 </CardContent>

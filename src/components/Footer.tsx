@@ -1,5 +1,6 @@
 
 import Logo from "@/assets/images/logo.jpg"
+import OneSolutionLogo from "@/assets/images/one_solution.png"
 
 export default function Footer () {
   const scrollToSection = (sectionId: string) => {
@@ -77,7 +78,13 @@ export default function Footer () {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-6 sm:pt-8 text-center text-xs sm:text-sm text-gray-400">
-            <p>&copy; 2024 Second Chance Foundation. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Second Chance Foundation. All rights reserved.</p>
+            <div className="mt-4 flex items-center justify-center gap-2">
+              <span className="text-gray-400">Powered by</span>
+              <a href="https://onesolution-profile.vercel.app/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:opacity-90">
+                <img src={OneSolutionLogo} alt="One Solution Ghana" className="h-10 w-auto" />
+              </a>
+            </div>
           </div>
         </div>
       </footer>

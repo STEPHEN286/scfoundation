@@ -1,6 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import DonateModal from "./DonateModal";
 
 import Logo from "@/assets/images/logo.jpg"
@@ -44,25 +45,31 @@ export default function Header() {
           </div>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex space-x-8">
-            <button 
-              onClick={() => scrollToSection('home')}
+          <div className="hidden md:flex space-x-8 items-center">
+            <Link 
+              to="/#home"
               className="text-gray-700 hover:text-pink-600 font-medium transition-colors duration-200"
             >
               Home
-            </button>
-            <button 
-              onClick={() => scrollToSection('about')}
+            </Link>
+            <Link 
+              to="/#about"
               className="text-gray-700 hover:text-pink-600 font-medium transition-colors duration-200"
             >
               About
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
+            </Link>
+            <Link  
+              to="/gallery"
+              className="text-gray-700   mb-0 hover:text-pink-600 font-medium transition-colors duration-200"
+            >
+              Gallery
+            </Link>
+            <Link 
+              to="/#contact"
               className="text-gray-700 hover:text-pink-600 font-medium transition-colors duration-200"
             >
               Contact
-            </button>
+            </Link>
             <DonateModal 
               trigger={
                 <Button className="bg-pink-600 hover:bg-pink-700 px-6 py-2">
@@ -77,24 +84,30 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <button
-                onClick={() => scrollToSection('home')}
+              <Link
+                to="/#home"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 w-full text-left"
               >
                 Home
-              </button>
-              <button
-                onClick={() => scrollToSection('about')}
+              </Link>
+              <Link
+                to="/#about"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 w-full text-left"
               >
                 About
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
+              </Link>
+              <Link
+                to="/gallery"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 w-full text-left"
+              >
+               Gallery
+              </Link>
+              <Link
+                to="/#contact"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-pink-600 hover:bg-pink-50 w-full text-left"
               >
                 Contact
-              </button>
+              </Link>
               <div className="px-3 py-2">
                 <DonateModal 
                   trigger={
