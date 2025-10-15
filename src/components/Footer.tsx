@@ -82,7 +82,7 @@ export default function Footer () {
             <div className="mt-4 flex items-center justify-center gap-2">
               <span className="text-gray-400">Powered by</span>
               <a href="https://onesolution-profile.vercel.app/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:opacity-90">
-                <img src={OneSolutionLogo} alt="One Solution Ghana" className="h-10 w-auto" />
+                <img src={OneSolutionLogo} alt="One Solution Ghana" className="h-20 w-auto" />
               </a>
             </div>
           </div>

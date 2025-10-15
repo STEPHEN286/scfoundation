@@ -13,7 +13,13 @@ export default function useDonation() {
     setIsSubmitting(true);
     setError(null);
     try {
-      const payload = { full_name, email, amount: Number(amount), callback_url };
+      // Fetch USD->GHS rate from settings endpoint (POST as requested)
+      const settingsRes = await axios.post(import.meta.env.VITE_SETTINGS_API   , { "action": "get_settings"},  { headers: { "Content-Type": "application/json" } });
+      const rate = Number(settingsRes?.data?.rate) ;
+      const amount_in_cedis = Number((Number(amount) * rate).toFixed(2));
+
+      // Send amount in cedis to initialize donation API
+      const payload = { full_name, email, amount: amount_in_cedis, callback_url };
       const response = await axios.post(
         import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
         payload,
