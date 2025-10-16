@@ -109,7 +109,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
     try {
       setSubmitting(true);
       const callbackUrl =
-        "https://presidentialrtc.site/secondchance/payment-callback.html'";
+        "https://presidentialrtc.site/secondchance/payment-callback.html";
       const responseData = await initializeDonation({
         full_name: values.full_name,
         email: values.email,
