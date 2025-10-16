@@ -265,8 +265,7 @@ const DonationModal = ({ trigger }: DonationModalProps) => {
 
           <div className="text-xs text-gray-500 bg-pink-50 p-2 rounded-md border-l-2 border-pink-200">
             <strong>Note:</strong> Your donation will be processed in Ghanaian
-            Cedis (GHC). The amount shown above will be converted using the
-            current exchange rate.
+            Cedis (GHC). 
           </div>
         </div>
 
