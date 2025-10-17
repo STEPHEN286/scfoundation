@@ -11,23 +11,17 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <App />
       <Toaster
-        position="bottom-left"
+        position="bottom-center"
         reverseOrder={false}
         gutter={8}
-        containerClassName="react-hot-toast-container"
-        containerStyle={{
-          zIndex: 9999,
-          bottom: "16px",
-          left: "16px",
-        }}
         toastOptions={{
           duration: 5000,
           style: {
-            background: "transparent",
-            color: "#363636",
-            margin: "0",
-            padding: "0",
-            boxShadow: "none",
+            background: 'transparent',
+            color: '#363636',
+            margin: '0',
+            padding: '0',
+            boxShadow: 'none',
           },
           success: {
             duration: 2000,
